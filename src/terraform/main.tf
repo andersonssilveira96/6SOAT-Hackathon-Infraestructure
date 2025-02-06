@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_cognito_user_pool" "fiapx-userspool" {
   name = "fiapx-userspool"
-  generate_secret = true
+  
   # Configuração da política de senha
   password_policy {
     minimum_length    = 8
@@ -39,6 +39,7 @@ resource "aws_cognito_user_pool" "fiapx-userspool" {
 resource "aws_cognito_user_pool_client" "fiapx-usersclient" {
   name         = "fiapx-usersclient"
   user_pool_id = aws_cognito_user_pool.fiapx-userspool.id
+  generate_secret = true
 
   explicit_auth_flows = [
     "ALLOW_ADMIN_USER_PASSWORD_AUTH",
