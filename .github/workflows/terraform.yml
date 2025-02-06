@@ -1,0 +1,43 @@
+name: Deploy Infra
+on:
+ pull_request:
+    types:
+      - closed
+    branches:
+      - master 
+jobs:
+        
+  tf-deploy:
+    name: Terraform Deploy  
+
+    if: github.ref == 'refs/heads/master' 
+
+    runs-on: ubuntu-latest
+
+    defaults:
+        run:
+          working-directory: src
+          
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Login to AWS
+        uses: aws-actions/configure-aws-credentials@v3
+        with:          
+          aws-region: 'us-east-1'
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Prepare environment
+        run: terraform init 
+
+      - name: Terraform Plan
+        run: terraform plan -lock=false -no-color -input=false
+
+      - name: Execute terraform apply
+        run: terraform apply -lock=false -auto-approve -input=false
