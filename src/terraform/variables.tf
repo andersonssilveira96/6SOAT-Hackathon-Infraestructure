@@ -47,3 +47,10 @@ variable "bucket_name" {
   type        = string
   default     = "fiapxfilesbucket"
 }
+
+variable "environment" {
+  description = "Development"
+  default     = "Development"
+  type        = string
+}
+
