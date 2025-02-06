@@ -44,30 +44,13 @@ resource "aws_eks_cluster" "eks-fiapx" {
     subnet_ids              = [for subnet in data.aws_subnet.selected : subnet.id if subnet.availability_zone != "us-east-1e"]
   }
   
-  logging {
-    cluster_logging {
-      enabled = true
-      types   = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
-    }
-  }
+   enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+
 }
 
 resource "aws_cloudwatch_log_group" "eks_logs" {
   name              = "/aws/eks/my-eks-cluster/logs"
   retention_in_days = 30  # Tempo de retenção dos logs
-}
-
-resource "aws_cloudwatch_metric_alarm" "eks_cpu_alarm" {
-  alarm_name          = "eks-high-cpu"
-  comparison_operator = "GreaterThanOrEqualToThreshold"
-  evaluation_periods  = 2
-  metric_name         = "node_cpu_utilization"
-  namespace           = "ContainerInsights"
-  period              = 60
-  statistic           = "Average"
-  threshold           = 80
-  alarm_description   = "Alarme para uso alto de CPU no EKS"
-  alarm_actions       = [aws_sns_topic.eks_alerts.arn]
 }
 
 resource "aws_iam_role_policy_attachment" "eks_logs" {
