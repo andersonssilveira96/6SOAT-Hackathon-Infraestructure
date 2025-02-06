@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_cognito_user_pool" "fiapx-userspool" {
   name = "fiapx-userspool"
-
+  generate_secret = true
   # Configuração da política de senha
   password_policy {
     minimum_length    = 8
