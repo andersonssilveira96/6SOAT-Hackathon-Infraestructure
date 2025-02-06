@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-processamento-deployment
+  labels:
+    app: api-processamento
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-processamento
+  template:
+    metadata:
+      name: pod-api
+      labels:
+        app: api-processamento
+    spec:
+      containers:
+        - name: api-processamento-container
+          image: andssil/fiapx-processamento:latest
+          ports:
+            - containerPort: 8080
+          env:  
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Production                         
+            - name: ConnectionStrings__MongoDb
+              valueFrom: 
+               secretKeyRef:
+                name: api-processamento-secret
+                key: connectionString
+          imagePullPolicy: IfNotPresent               
+          resources:
+            requests:
+              cpu: 50m  
