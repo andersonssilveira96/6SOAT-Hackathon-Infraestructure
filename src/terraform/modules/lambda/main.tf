@@ -1,4 +1,4 @@
-resource "aws_lambda_function" "fiapx" {
+resource "aws_lambda_function" "fiapx_lambda_auth" {
   function_name = "fiapx-lambda-auth"
   filename      = "../FIAPX.Auth/auth_lambda.zip"
   handler       = "FIAPX.Auth::FIAPX.Auth.Function_LambdaAuth_Generated::LambdaAuth"
