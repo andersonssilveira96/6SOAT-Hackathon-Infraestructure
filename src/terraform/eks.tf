@@ -43,19 +43,6 @@ resource "aws_eks_cluster" "eks-fiapx" {
     public_access_cidrs     = ["0.0.0.0/0"]
     subnet_ids              = [for subnet in data.aws_subnet.selected : subnet.id if subnet.availability_zone != "us-east-1e"]
   }
-  
-   enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
-
-}
-
-resource "aws_cloudwatch_log_group" "eks_logs" {
-  name              = "/aws/eks/my-eks-cluster/logs"
-  retention_in_days = 30  # Tempo de retenção dos logs
-}
-
-resource "aws_iam_role_policy_attachment" "eks_logs" {
-  role       = aws_iam_role.eks.name
-  policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
 }
 
 resource "aws_eks_node_group" "fiapx-node" {
