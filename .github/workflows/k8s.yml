@@ -1,0 +1,30 @@
+name: Deploy to EKS
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [deployment]
+jobs:
+  deploy:
+    name: Deploy to EKS
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: AWS Deployment
+        run: echo "Deploying..."
+        
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to AWS
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-region: "us-east-1"
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+
+      - name: Run Setup Script
+        run: |                                                            
+          aws eks update-kubeconfig --name eks-fiapx --region us-east-1 
+          chmod +x ./src/k8s/setup.ps1
+          ./src/kubernetes/setup.ps1    
