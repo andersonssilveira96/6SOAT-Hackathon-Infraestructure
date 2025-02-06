@@ -3,8 +3,7 @@ Repositório destinado para ter toda a infraestrutura da aplicação, tanto terr
 
 ## Arquitetura
 
-![image](https://github.com/user-attachments/assets/b312e73a-3d92-4442-b5c4-1bf2e429960d)
-
+![image](https://github.com/user-attachments/assets/2823cef7-9f79-4105-b865-eeb5b5d847b8)
 
 ## Projetos Relacionados
 
