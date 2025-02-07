@@ -27,4 +27,4 @@ jobs:
         run: |                                                            
           aws eks update-kubeconfig --name eks-fiapx --region us-east-1 
           chmod +x ./src/k8s/setup.ps1
-          ./src/kubernetes/setup.ps1    
+          ./src/k8s/setup.ps1    
