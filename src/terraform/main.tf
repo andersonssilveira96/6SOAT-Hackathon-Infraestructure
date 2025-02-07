@@ -16,9 +16,7 @@ resource "aws_cognito_user_pool" "fiapx-userspool" {
 
   alias_attributes         = ["email"]
   
-  # Definindo que apenas e-mail será usado para autenticação
-  username_attributes = ["email"]
-  
+ 
   # Configuração dos tipos de autenticação permitidos
   admin_create_user_config {
     allow_admin_create_user_only = false
