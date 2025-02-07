@@ -23,7 +23,7 @@ spec:
           env:  
             - name: ASPNETCORE_ENVIRONMENT
               value: Production                         
-            - name: ConnectionStrings__MongoDb
+            - name: ConnectionStrings__Database
               valueFrom: 
                secretKeyRef:
                 name: api-processamento-secret
