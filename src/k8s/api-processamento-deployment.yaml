@@ -18,6 +18,7 @@ spec:
       containers:
         - name: api-processamento-container
           image: andssil/fiapx-processamento:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:  

@@ -13,9 +13,6 @@ resource "aws_cognito_user_pool" "fiapx-userspool" {
     require_symbols   = true
     require_uppercase = true
   }
-
-  alias_attributes         = ["email"]
-  
  
   # Configuração dos tipos de autenticação permitidos
   admin_create_user_config {
