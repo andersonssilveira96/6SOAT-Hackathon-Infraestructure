@@ -18,6 +18,7 @@ spec:
       containers:
         - name: api-cadastro-container
           image: andssil/fiapx-cadastro:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:  
